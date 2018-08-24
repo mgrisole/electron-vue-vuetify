@@ -1,5 +1,5 @@
 <template lang='pug'>
-  v-app(dark)
+  v-app
     router-view
 </template>
 
@@ -9,6 +9,14 @@ export default {
   name: 'App',
   data () {
     return {}
+  },
+  timers: {
+    log: { time: 1000, autostart: true }
+  },
+  methods: {
+    log () {
+      console.log('Hello world')
+    }
   }
 }
 </script>

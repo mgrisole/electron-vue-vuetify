@@ -1,7 +1,7 @@
 <template lang='pug'>
-  v-container(fill-height)
-    v-layout(column align-center)
-      ModuleTimer
+  v-container.moduleContainer(fill-height fluid text-xs-center)
+    v-layout(column)
+      ModuleTimer(locale='fr')
       ModuleTimer
 </template>
 
@@ -20,5 +20,5 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang='stylus'>
 </style>

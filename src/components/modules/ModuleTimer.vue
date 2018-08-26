@@ -5,38 +5,6 @@
 </template>
 
 <script>
-// import moment from 'moment'
-
-// export default {
-//   name: 'Home',
-//   data () {
-//     return {
-//       hour: '',
-//       minutes: '',
-//       seconds: ''
-//     }
-//   },
-//   props: {
-//     locale: {
-//       type: String,
-//       default: ''
-//     }
-//   },
-//   beforeCreate () {
-//     moment.locale(this.$options.propsData.locale)
-//   },
-//   mounted () {
-//     this.$options.interval = setInterval(() => {
-//       this.hour = moment().hour()
-//       this.minutes = moment().minutes()
-//       this.seconds = moment().seconds()
-//     }, 5000)
-//   },
-//   beforeDestroy () {
-//     moment.locale(this.$options.interval)
-//   }
-// }
-
 import moment from 'moment'
 
 export default {
@@ -48,24 +16,25 @@ export default {
       seconds: ''
     }
   },
+  beforeCreate () {
+    moment.locale('fr');
+  },
   props: {
     locale: {
       type: String,
       default: ''
     }
   },
-  beforeCreate () {
-    moment.locale(this.$options.propsData.locale)
+  timers: {
+    tick: { time: 1000, autostart: true, repeat: true, immediate: true }
   },
-  mounted () {
-    this.$options.interval = setInterval(() => {
-      this.hour = moment().hour()
-      this.minutes = moment().minutes()
-      this.seconds = moment().seconds()
-    }, 5000)
-  },
-  beforeDestroy () {
-    moment.locale(this.$options.interval)
+  methods: {
+    tick () {
+      let now = moment();
+      this.hour = now.hour()
+      this.minutes = now.minute()
+      this.seconds = now.seconds()
+    }
   }
 }
 </script>

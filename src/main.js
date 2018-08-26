@@ -9,11 +9,10 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.config.productionTip = false
 
+Vue.use(VueTimers)
+
 new Vue({
   router,
   store,
-  VueTimers,
   render: h => h(App)
 }).$mount('#app')
-
-Vue.use(VueTimers)

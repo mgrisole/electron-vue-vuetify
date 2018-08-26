@@ -17,7 +17,7 @@ export default {
     }
   },
   beforeCreate () {
-    moment.locale('fr');
+    moment.locale(this.$options.propsData.locale)
   },
   props: {
     locale: {
@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     tick () {
-      let now = moment();
-      this.hour = now.hour()
-      this.minutes = now.minute()
-      this.seconds = now.seconds()
+      let now = moment()
+      this.hour = now.format('HH')
+      this.minutes = now.format('mm')
+      this.seconds = now.format('ss')
     }
   }
 }

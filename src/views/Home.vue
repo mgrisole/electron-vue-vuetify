@@ -2,16 +2,18 @@
   v-container.moduleContainer(fill-height fluid text-xs-center)
     v-layout(column)
       ModuleTimer(locale='fr')
-      ModuleTimer
+      ModuleWeather
 </template>
 
 <script>
 import ModuleTimer from '@/components/modules/ModuleTimer'
+import ModuleWeather from '@/components/modules/ModuleWeather'
 
 export default {
   name: 'Home',
   components: {
-    ModuleTimer
+    ModuleTimer,
+    ModuleWeather
   },
   data () {
     return {}

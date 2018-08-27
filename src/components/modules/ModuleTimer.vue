@@ -8,7 +8,7 @@
 import moment from 'moment'
 
 export default {
-  name: 'Home',
+  name: 'ModuleTimer',
   data () {
     return {
       hour: '',

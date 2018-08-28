@@ -2,27 +2,23 @@
   v-layout(wrap align-center)
     v-flex(xs12 align-center)
       | {{weather}}
-      ve-line(:data="chartData" :settings="chartSettings")
+      ChartLine
 </template>
 
 <script>
 import DarkSkyApi from 'dark-sky-api'
 import geolocator from 'ipapi.co'
 import moment from 'moment'
+import ChartLine from '@/components/ChartLine'
 
 export default {
   name: 'ModuleWeather',
+  components: {
+    ChartLine
+  },
   data () {
-    this.chartSettings = {
-      stack: { 'sell': ['cost', 'profit'] },
-      area: true
-    }
     return {
-      weather: '',
-      chartData: {
-        columns: ['date', 'Température'],
-        rows: []
-      }
+      weather: ''
     }
   },
   props: {
@@ -36,8 +32,7 @@ export default {
   },
   methods: {
     tick () {
-      geolocator.location( geo => {
-        console.log(geo);
+      geolocator.location(geo => {
         DarkSkyApi.apiKey = '3243ee68155dc349256ef028fd56466c'
         DarkSkyApi.units = 'si'
         DarkSkyApi.language = 'fr'
@@ -45,14 +40,13 @@ export default {
           latitude: geo.latitude,
           longitude: geo.longitude
         })
-        .then(result => {
+          .then(result => {
             this.chartData.rows = result.hourly.data.map(e => {
               return {
-                'date': moment.unix(e.time).format("MM/DD/YYYY HH"),
+                'date': moment.unix(e.time).format('DD/MM HH') + 'h',
                 'Température': e.temperature
               }
             })
-            console.log(this.chartData.rows)        
           })
       })
     }

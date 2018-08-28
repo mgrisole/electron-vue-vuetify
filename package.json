@@ -10,12 +10,16 @@
     "serve:electron": "vue-cli-service serve:electron"
   },
   "dependencies": {
+    "dark-sky-api": "^0.6.31",
     "echarts": "^4.1.0",
     "forecastio": "^2.0.0",
+    "ipapi.co": "^0.2.3",
+    "iplocation": "^5.0.1",
     "moment": "^2.22.2",
     "node-where": "^1.1.0",
     "openweather-apis": "^3.3.5",
     "public-ip": "^2.4.0",
+    "run-electron": "^0.1.0",
     "v-charts": "^1.17.10",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",

@@ -7,8 +7,9 @@
 
 <script>
 import publicIp from 'public-ip'
-import where from 'node-where'
-import ForecastIo from 'forecastio'
+import iplocation from 'iplocation'
+import DarkSkyApi from 'dark-sky-api'
+import geolocator from 'ipapi.co'
 
 export default {
   name: 'ModuleWeather',
@@ -22,12 +23,12 @@ export default {
       chartData: {
         columns: ['date', 'Température'],
         rows: [
-          { 'date': '01/01', 'Température': 1523 },
-          { 'date': '01/02', 'Température': 1223 },
-          { 'date': '01/03', 'Température': 2123 },
-          { 'date': '01/04', 'Température': 4123 },
-          { 'date': '01/05', 'Température': 3123 },
-          { 'date': '01/06', 'Température': 7123 }
+          { 'date': '01/1', 'Température': 1523 },
+          { 'date': '01/2', 'Température': 1223 },
+          { 'date': '01/3', 'Température': 2123 },
+          { 'date': '01/4', 'Température': 4123 },
+          { 'date': '01/5', 'Température': 3123 },
+          { 'date': '01/6', 'Température': 7123 }
         ]
       }
     }
@@ -43,19 +44,25 @@ export default {
   },
   methods: {
     tick () {
-      publicIp.v4().then(ip => {
-        console.log(ip)
-        where.is(ip, (err, result) => {
-          console.log(err);          
-          console.log(result)
-          
+      geolocator.location( geo => {
+        console.log(geo);
+        DarkSkyApi.apiKey = '3243ee68155dc349256ef028fd56466c'
+        DarkSkyApi.units = 'si'
+        DarkSkyApi.language = 'fr'
+        DarkSkyApi.loadItAll(null, {
+          latitude: geo.latitude,
+          longitude: geo.longitude
         })
+        .then(result => {
+            this.chartData.rows = result.hourly.data.map(e => {
+              return {
+                'date': new Date(e.time*1000).getMonth() + '/' + new Date(e.time*1000).getDate(),
+                'Température': e.temperature
+              }
+            })
+            console.log(this.chartData.rows)        
+          })
       })
-
-      // let forecastIo = new ForecastIo('3243ee68155dc349256ef028fd56466c');
-      // forecastIo.forecast('51.506', '-0.127').then( data => {
-      //   console.log(JSON.stringify(data, null, 2))
-      // })
     }
   }
 }

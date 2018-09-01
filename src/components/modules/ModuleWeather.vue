@@ -2,7 +2,7 @@
   v-layout(wrap align-center)
     v-flex(xs12 align-center)
       | {{weather}}
-      ChartLine
+      ChartLine(:labels="labels", :datasets="datasets")
 </template>
 
 <script>
@@ -18,7 +18,15 @@ export default {
   },
   data () {
     return {
-      weather: ''
+      weather: '',
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'Data One',
+          backgroundColor: '#FC2525',
+          data: [40, 39, 10, 40, 39, 80, 40]
+        }
+      ]
     }
   },
   props: {
@@ -41,12 +49,14 @@ export default {
           longitude: geo.longitude
         })
           .then(result => {
-            this.chartData.rows = result.hourly.data.map(e => {
+            let data = result.hourly.data.map(e => {
               return {
                 'date': moment.unix(e.time).format('DD/MM HH') + 'h',
                 'Température': e.temperature
               }
             })
+            this.labels = data.map(e => e.date)
+            console.log(this.labels)
           })
       })
     }

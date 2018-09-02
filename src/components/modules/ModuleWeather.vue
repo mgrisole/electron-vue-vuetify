@@ -2,7 +2,7 @@
   v-layout(wrap align-center)
     v-flex(xs12 align-center)
       | {{weather}}
-      ChartLine(:labels="labels", :datasets="datasets")
+      ChartLine(:chart-data="datacollection")
 </template>
 
 <script>
@@ -19,14 +19,7 @@ export default {
   data () {
     return {
       weather: '',
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Data One',
-          backgroundColor: '#FC2525',
-          data: [40, 39, 10, 40, 39, 80, 40]
-        }
-      ]
+      datacollection: null
     }
   },
   props: {
@@ -55,10 +48,25 @@ export default {
                 'Température': e.temperature
               }
             })
-            this.labels = data.map(e => e.date)
-            console.log(this.labels)
+            // this.labels = data.map(e => e.date)
+            // console.log(this.labels)
+            console.log(data);
+            
+            this.datacollection = {
+              labels: data.map(e => e.date),
+              datasets: [
+                {
+                  label: 'Data One',
+                  backgroundColor: '#f87979',
+                  data: data.map(e => e.Température)
+                }
+              ]
+            }
           })
       })
+    },
+    getRandomInt () {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
     }
   }
 }
